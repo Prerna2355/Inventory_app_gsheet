@@ -120,14 +120,15 @@ elif menu == "Add Item":
         builder_name = st.text_input("Owner_Builder_name", key="builder_name")
         builder_no = st.text_input("Owner_Builder_number", key="builder_no")
         comments = st.text_area("Comments", key="comments")
-col1, col2 = st.columns(2)
+        
+        col1, col2 = st.columns(2)
 
-with col1:
-    submit = st.form_submit_button("💾 Save")
-
-with col2:
-    clear = st.form_submit_button("🧹 Clear")
-        #submit = st.form_submit_button("Save")
+        with col1:
+            submit = st.form_submit_button("💾 Save")
+        
+        with col2:
+            clear = st.form_submit_button("🧹 Clear")
+                #submit = st.form_submit_button("Save")
 
     if submit:
         insert_item(date,op_name,category, ptype,area,address, unit_no,bhk,
