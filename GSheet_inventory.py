@@ -17,7 +17,8 @@ def normalize_text(text):
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 import json
-creds_dict = json.loads(st.secrets["gcp_service_account"])
+import os
+creds_dict = json.loads(os.environ["gcp_service_account"])
 creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
 client = gspread.authorize(creds)
 
