@@ -30,14 +30,14 @@ def fetch_inventory():
     df = pd.DataFrame(data)
 
     # Normalize key columns
-    for col in ["Operator Name","Area","Property Category", "Property Type", "Property Address","Owner/Builder name","Facilities", "Comments"]:
+    for col in ["Operator Name","Area","Property Category", "Property Type", "Property Address","Owner/Builder name","BHK", "Comments"]:
         if col in df.columns:
             df[col] = df[col].astype(str).str.title()
 
     return df
 
 
-def insert_item(Date,Operator_Name,Area,Property_Category, Property_Type, Property_Address,Unit_No_Floor_No,Size, Price,Owner_Builder_name,Owner_Builder_number,Cheque,Facilities,Comments):
+def insert_item(Date,Operator_Name,Area,Property_Category, Property_Type, Property_Address,Unit_No_Floor_No,Size, Price,Owner_Builder_name,Owner_Builder_number,Cheque,BHK,Comments):
 
     current_data = sheet.get_all_records()
     new_id = len(current_data) + 1
@@ -46,17 +46,17 @@ def insert_item(Date,Operator_Name,Area,Property_Category, Property_Type, Proper
         new_id,
         Date,
         normalize_text(Operator_Name),
-        normalize_text(Area),
         normalize_text(Property_Category),
         normalize_text(Property_Type),
+        normalize_text(Area),
         normalize_text(Property_Address),
         normalize_text(Unit_No_Floor_No),
-        normalize_text(Size),
-        Price,
+        normalize_text(BHK),
         normalize_text(Owner_Builder_name),
         normalize_text(Owner_Builder_number),
+        normalize_text(Size),
+        Price,
         normalize_text(Cheque),
-        normalize_text(Facilities),
         normalize_text(Comments)
     ])
 
@@ -106,33 +106,46 @@ elif menu == "Add Item":
     Property_Types = ["Rent", "Sale", "Resale"]
 
     with st.form("add_form"):
-        date = st.text_input("Date")
-        op_name = st.text_input("Operator_Name")
-        area = st.text_input("Area")
-        category = st.selectbox("Property_Category", Categories)
-        ptype = st.selectbox("Property_Type", Property_Types)
-        address = st.text_input("Property_Address")
+        date = st.text_input("Date",key="date")
+        op_name = st.text_input("Operator_Name",key="op_name")
+        category = st.selectbox("Property_Category", Categories, key="category")
+        ptype = st.selectbox("Property_Type", Property_Types, key="ptype")
+        area = st.text_input("Area", key="area")
+        address = st.text_input("Property_Address", key="address")
+        unit_no = st.text_input("Unit_No_Floor_No", key="unit_no")
+        bhk = st.text_input("BHK",key="bhk")
+        size = st.text_input("Size", key="size")
+        price = st.text_input("Price", key="price")
+        cheque = st.text_input("Cheque", key="cheque")
+        builder_name = st.text_input("Owner_Builder_name", key="builder_name")
+        builder_no = st.text_input("Owner_Builder_number", key="builder_no")
+        comments = st.text_area("Comments", key="comments")
+col1, col2 = st.columns(2)
 
-        unit_no = st.text_input("Unit_No_Floor_No")
-        size = st.text_input("Size")
-        price = st.text_input("Price")
-        builder_name = st.text_input("Owner_Builder_name")
-        builder_no = st.text_input("Owner_Builder_number")
-        cheque = st.text_input("Cheque")
-        
-       
-        facility = st.text_input("Facilities")
-        comments = st.text_area("Comments")
+with col1:
+    submit = st.form_submit_button("💾 Save")
 
-        submit = st.form_submit_button("Save")
+with col2:
+    clear = st.form_submit_button("🧹 Clear")
+        #submit = st.form_submit_button("Save")
 
     if submit:
-        insert_item(date,op_name,area,category, ptype,address, unit_no,
-                    size,price,builder_name,builder_no,cheque, facility, comments)
+        insert_item(date,op_name,category, ptype,area,address, unit_no,bhk,
+                    size,price,cheque,builder_name,builder_no,comments)
 
         st.session_state.df = fetch_inventory()
         st.success("✅ Lead added successfully")
         st.rerun()
+    # 🔘 Clear Form Button
+    if clear:
+        for key in [
+        "date","op_name","category", "ptype","area","address", "unit_no", "bhk",
+                    "size","price","cheque","builder_name","builder_no","comments"
+    ]:
+        if key in st.session_state:
+            st.session_state[key] = ""
+
+    st.rerun()
 
 # ---------- VIEW ITEMS ----------
 elif menu == "View items":
