@@ -137,10 +137,11 @@ with col2:
         st.success("✅ Lead added successfully")
         st.rerun()
     # 🔘 Clear Form Button
-    if clear:
-        for key in [
-        "date","op_name","category", "ptype","area","address", "unit_no", "bhk",
-                    "size","price","cheque","builder_name","builder_no","comments"
+   if clear:
+    for key in [
+        "date", "op_name", "category", "ptype", "area", "address",
+        "unit_no", "bhk", "size", "price", "cheque",
+        "builder_name", "builder_no", "comments"
     ]:
         if key in st.session_state:
             st.session_state[key] = ""
