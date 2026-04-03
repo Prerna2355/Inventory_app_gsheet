@@ -108,8 +108,9 @@ elif menu == "Add Item":
 
     Property_Types = ["Rent", "Sale", "Resale"]
 
+    submit= False
+    clear= False
     with st.form(f"add_form_{st.session_state.form_reset}"):
-        date = st.text_input("Date", key=f"date_{st.session_state.form_reset}")
         date = st.text_input("Date",key=f"date_{st.session_state.form_reset}")
         op_name = st.text_input("Operator_Name",key=f"op_name_{st.session_state.form_reset}")
         category = st.selectbox("Property_Category", Categories, key=f"category_{st.session_state.form_reset}")
