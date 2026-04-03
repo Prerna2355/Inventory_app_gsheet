@@ -146,7 +146,7 @@ elif menu == "Add Item":
             "builder_name", "builder_no", "comments"
         ]:
             if key in st.session_state:
-                st.session_state[key] = ""
+                 del st.session_state[key]
     
         st.rerun()
 
