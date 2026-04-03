@@ -74,6 +74,9 @@ def delete_item(row_number):
 if "df" not in st.session_state:
     st.session_state.df = fetch_inventory()
 
+if "form_reset" not in st.session_state:   
+    st.session_state.form_reset = 0
+
 # ---------- UI ----------
 st.title(PAGE_TITLE)
 st.write("Lead Management System.")
