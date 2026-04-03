@@ -37,7 +37,7 @@ def fetch_inventory():
     return df
 
 
-def insert_item(Date,Operator_Name,Area,Property_Category, Property_Type, Property_Address,Unit_No_Floor_No,Size, Price,Owner_Builder_name,Owner_Builder_number,Cheque,BHK,Comments):
+def insert_item(Date,Operator_Name,Property_Category, Property_Type, Area,Property_Address,Unit_No_Floor_No,BHK,Owner_Builder_name,Owner_Builder_number,Size, Price,Cheque,Comments):
 
     current_data = sheet.get_all_records()
     new_id = len(current_data) + 1
