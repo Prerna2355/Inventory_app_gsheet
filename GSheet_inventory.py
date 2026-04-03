@@ -129,25 +129,26 @@ elif menu == "Add Item":
         with col2:
             clear = st.form_submit_button("🧹 Clear")
                 #submit = st.form_submit_button("Save")
+if submit:
+    insert_item(date, op_name, category, ptype, area, address, unit_no, bhk,
+                size, price, cheque, builder_name, builder_no, comments)
 
-    if submit:
-        insert_item(date,op_name,category, ptype,area,address, unit_no,bhk,
-                    size,price,cheque,builder_name,builder_no,comments)
+    st.session_state.df = fetch_inventory()
+    st.success("✅ Lead added successfully")
+    st.rerun()
 
-        st.session_state.df = fetch_inventory()
-        st.success("✅ Lead added successfully")
-        st.rerun()
-        
-    # 🔘 Clear Form Button
-   if clear:
-        for key in [
+
+# 🔘 Clear Form Button
+if clear:
+    for key in [
         "date", "op_name", "category", "ptype", "area", "address",
         "unit_no", "bhk", "size", "price", "cheque",
-        "builder_name", "builder_no", "comments"]:
-            if key in st.session_state:
-                st.session_state[key] = ""
+        "builder_name", "builder_no", "comments"
+    ]:
+        if key in st.session_state:
+            st.session_state[key] = ""
 
-        st.rerun()
+    st.rerun()
 
 # ---------- VIEW ITEMS ----------
 elif menu == "View items":
