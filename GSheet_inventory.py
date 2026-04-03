@@ -105,7 +105,7 @@ elif menu == "Add Item":
 
     Property_Types = ["Rent", "Sale", "Resale"]
 
-    with st.form("add_form"):
+    with st.form(f"add_form_{st.session_state.form_reset}"):
         date = st.text_input("Date",key="date")
         op_name = st.text_input("Operator_Name",key="op_name")
         category = st.selectbox("Property_Category", Categories, key="category")
@@ -135,19 +135,13 @@ elif menu == "Add Item":
     
         st.session_state.df = fetch_inventory()
         st.success("✅ Lead added successfully")
+        st.session_state.form_reset += 1
         st.rerun()
     
     
     # 🔘 Clear Form Button
     if clear:
-        for key in [
-            "date", "op_name", "category", "ptype", "area", "address",
-            "unit_no", "bhk", "size", "price", "cheque",
-            "builder_name", "builder_no", "comments"
-        ]:
-            if key in st.session_state:
-                 del st.session_state[key]
-    
+        st.session_state.form_reset += 1
         st.rerun()
 
 # ---------- VIEW ITEMS ----------
