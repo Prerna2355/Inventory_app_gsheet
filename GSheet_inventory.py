@@ -34,7 +34,7 @@ def fetch_inventory():
     # Normalize key columns
     for col in ["Operator Name","Area","Property Category", "Property Type", "Property Address","Owner/Builder name","BHK", "Comments"]:
         if col in df.columns:
-            df[col] = df[col]).str.title()
+            df[col] = df[col].str.title()
 
     return df
 
