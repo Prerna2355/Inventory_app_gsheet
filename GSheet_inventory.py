@@ -29,10 +29,12 @@ def fetch_inventory():
     data = sheet.get_all_records()
     df = pd.DataFrame(data)
 
+    df=df.astype(str)
+
     # Normalize key columns
     for col in ["Operator Name","Area","Property Category", "Property Type", "Property Address","Owner/Builder name","BHK", "Comments"]:
         if col in df.columns:
-            df[col] = df[col].astype(str).str.title()
+            df[col] = df[col]).str.title()
 
     return df
 
