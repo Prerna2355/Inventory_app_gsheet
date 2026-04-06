@@ -55,14 +55,14 @@ def insert_item(Date,Operator_Name,Property_Category, Property_Type, Area,Proper
         normalize_text(Owner_Builder_name),
         normalize_text(Owner_Builder_number),
         normalize_text(Size),
-        Price,
+        normalize_text(Price),
         normalize_text(Cheque),
         normalize_text(Comments)
     ])
 
 
 def update_item(row_number, price, Comments):
-    sheet.update_cell(row_number, 10, price)
+    sheet.update_cell(row_number, 10, normalize_text(price))
     sheet.update_cell(row_number, 15, normalize_text(Comments))
 
 
